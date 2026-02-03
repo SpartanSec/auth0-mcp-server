@@ -4,6 +4,7 @@ import { mockLogs } from './auth0/logs';
 import { mockActions, mockActionListResponse } from './auth0/actions';
 import { mockForms, mockFormListResponse } from './auth0/forms';
 import { mockResourceServers, mockResourceServerListResponse } from './auth0/resource-servers';
+import { mockConnections, mockConnectionListResponse } from './auth0/connections';
 
 // Define handlers for Auth0 API endpoints
 export const handlers = [
@@ -292,5 +293,90 @@ export const handlers = [
       ...resourceServer,
       ...updates,
     });
+  }),
+
+  // Connections API
+  http.get('https://*/api/v2/connections', ({ request }) => {
+    const authHeader = request.headers.get('Authorization');
+
+    // Check for invalid token
+    if (authHeader === 'Bearer invalid-token') {
+      return new HttpResponse(JSON.stringify({ error: 'Unauthorized', message: 'Invalid token' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Parse URL to check for strategy filter
+    const url = new URL(request.url);
+    const strategyParam = url.searchParams.get('strategy');
+
+    let filteredConnections = mockConnections;
+    if (strategyParam) {
+      const strategies = strategyParam.split(',');
+      filteredConnections = mockConnections.filter((c) => strategies.includes(c.strategy));
+    }
+
+    return HttpResponse.json({
+      connections: filteredConnections,
+      total: filteredConnections.length,
+      start: 0,
+      limit: 10,
+    });
+  }),
+
+  http.get('https://*/api/v2/connections/:connectionId', ({ params, request }) => {
+    const authHeader = request.headers.get('Authorization');
+
+    // Check for invalid token
+    if (authHeader === 'Bearer invalid-token') {
+      return new HttpResponse(JSON.stringify({ error: 'Unauthorized', message: 'Invalid token' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const { connectionId } = params;
+    const connection = mockConnections.find((c) => c.id === connectionId);
+
+    if (!connection) {
+      return new HttpResponse(null, { status: 404 });
+    }
+
+    return HttpResponse.json(connection);
+  }),
+
+  http.post('https://*/api/v2/connections', async ({ request }) => {
+    const newConnection = (await request.json()) as Record<string, any>;
+    return HttpResponse.json({
+      ...newConnection,
+      id: 'con_new123',
+    });
+  }),
+
+  http.patch('https://*/api/v2/connections/:connectionId', async ({ params, request }) => {
+    const { connectionId } = params;
+    const updates = (await request.json()) as Record<string, any>;
+    const connection = mockConnections.find((c) => c.id === connectionId);
+
+    if (!connection) {
+      return new HttpResponse(null, { status: 404 });
+    }
+
+    return HttpResponse.json({
+      ...connection,
+      ...updates,
+    });
+  }),
+
+  http.delete('https://*/api/v2/connections/:connectionId', ({ params }) => {
+    const { connectionId } = params;
+    const connection = mockConnections.find((c) => c.id === connectionId);
+
+    if (!connection) {
+      return new HttpResponse(null, { status: 404 });
+    }
+
+    return new HttpResponse(null, { status: 204 });
   }),
 ];
