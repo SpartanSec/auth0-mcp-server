@@ -220,6 +220,17 @@ The Auth0 MCP Server provides the following tools for Claude to interact with yo
 | `auth0_update_form`  | Update an existing Auth0 form           | - `Update the colors on our login form to match our new brand guidelines` <br> - `Add a privacy policy link to our signup form` <br> - `Change the logo on our password reset form` |
 | `auth0_publish_form` | Publish an Auth0 form                   | - `Publish my updated login form` <br> - `Make the new signup form live` <br> - `Deploy the password reset form to production`                                                      |
 
+### Connections
+
+| Tool                                 | Description                                         | Usage Examples                                                                                                                                                       |
+| ------------------------------------ | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `auth0_list_connections`             | List all connections in the Auth0 tenant            | - `Show me all my Auth0 connections` <br> - `List my social login providers` <br> - `What identity providers do I have configured?`                                  |
+| `auth0_get_connection`               | Get details about a specific Auth0 connection       | - `Show me details for the Google OAuth connection` <br> - `Get information about my GitHub login` <br> - `What apps are using my Facebook connection?`              |
+| `auth0_create_connection`            | Create a new Auth0 social connection                | - `Set up Google login for my application` <br> - `Create a GitHub connection with these OAuth credentials` <br> - `Add LinkedIn as a login option`                  |
+| `auth0_update_connection`            | Update an existing Auth0 connection                 | - `Update the OAuth credentials for my Google connection` <br> - `Change the scopes for my GitHub login` <br> - `Update the display name for my Facebook connection` |
+| `auth0_delete_connection`            | Delete an Auth0 connection                          | - `Remove the old Twitter connection` <br> - `Delete the unused GitHub connection` <br> - `Remove the test social login provider`                                    |
+| `auth0_enable_connection_for_client` | Enable a connection for specific Auth0 applications | - `Enable Google login for my web app` <br> - `Allow the mobile app to use Facebook login` <br> - `Connect my SPA to use GitHub authentication`                      |
+
 ### 🔒 Security Best Practices for Tool Access
 
 When configuring the Auth0 MCP Server, it's important to follow security best practices by limiting tool access based on your specific needs. The server provides flexible configuration options that let you control which tools AI assistants can access.
@@ -339,6 +350,10 @@ This will start the device authorization flow, allowing you to log in to your Au
 > - `read:forms`
 > - `create:forms`
 > - `update:forms`
+> - `read:connections`
+> - `create:connections`
+> - `update:connections`
+> - `delete:connections`
 >
 > </details>
 > The `init` command needs to be run whenever:
