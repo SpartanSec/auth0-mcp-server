@@ -150,7 +150,7 @@ describe('Keychain', () => {
       const results: KeychainOperationResult[] = await keychain.clearAll();
 
       // Assert
-      expect(keytar.deletePassword).toHaveBeenCalledTimes(4);
+      expect(keytar.deletePassword).toHaveBeenCalledTimes(5);
       expect(results.every((r: KeychainOperationResult) => r.success)).toBe(true);
     });
 
@@ -169,9 +169,9 @@ describe('Keychain', () => {
       const results: KeychainOperationResult[] = await keychain.clearAll();
 
       // Assert
-      expect(keytar.deletePassword).toHaveBeenCalledTimes(4);
+      expect(keytar.deletePassword).toHaveBeenCalledTimes(5);
       expect(results.filter((r: KeychainOperationResult) => r.success)).toHaveLength(2);
-      expect(results.filter((r: KeychainOperationResult) => !r.success)).toHaveLength(2);
+      expect(results.filter((r: KeychainOperationResult) => !r.success)).toHaveLength(3);
 
       const errorResult = results.find(
         (r: KeychainOperationResult) => r.item === KeychainItem.REFRESH_TOKEN
