@@ -20,6 +20,8 @@ export const KeychainItem = {
   REFRESH_TOKEN: 'AUTH0_REFRESH_TOKEN',
   /** Timestamp when the current token expires */
   TOKEN_EXPIRES_AT: 'AUTH0_TOKEN_EXPIRES_AT',
+  /** Claude API key for AI-powered features */
+  CLAUDE_API_KEY: 'CLAUDE_API_KEY',
 } as const;
 
 /**
@@ -119,6 +121,23 @@ class KeychainService {
   async getTokenExpiresAt(): Promise<number | null> {
     const value = await this.get(KeychainItem.TOKEN_EXPIRES_AT);
     return value ? parseInt(value, 10) : null;
+  }
+
+  /**
+   * Store the Claude API key in the keychain
+   * @param apiKey - The Claude API key to store
+   * @returns A promise that resolves to true if successful, false otherwise
+   */
+  async setClaudeApiKey(apiKey: string): Promise<boolean> {
+    return this.set(KeychainItem.CLAUDE_API_KEY, apiKey);
+  }
+
+  /**
+   * Retrieve the Claude API key from the keychain
+   * @returns A promise that resolves to the API key or null if not found
+   */
+  async getClaudeApiKey(): Promise<string | null> {
+    return this.get(KeychainItem.CLAUDE_API_KEY);
   }
 
   /**

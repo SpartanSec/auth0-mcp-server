@@ -10,6 +10,7 @@ import { maskTenantName } from './utils/terminal.js';
 import { getAvailableTools } from './utils/tools.js';
 import type { RunOptions } from './commands/run.js';
 import { packageVersion } from './utils/package.js';
+import { claudeApi } from './utils/claude-api.js';
 
 type ServerOptions = RunOptions;
 
@@ -60,6 +61,12 @@ export async function startServer(options?: ServerOptions) {
     }
 
     log(`Successfully loaded configuration for tenant: ${maskTenantName(config.tenantName)}`);
+
+    // Initialize Claude API client if API key is configured
+    await claudeApi.initialize();
+    if (claudeApi.isConfigured()) {
+      log('Claude API integration is available');
+    }
 
     // Get available tools based on options if provided
     const availableTools = getAvailableTools(TOOLS, options?.tools, options?.readOnly);
