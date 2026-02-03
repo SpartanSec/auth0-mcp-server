@@ -5,6 +5,7 @@ import init from './commands/init.js';
 import run from './commands/run.js';
 import logout from './commands/logout.js';
 import session from './commands/session.js';
+import config from './commands/config.js';
 import { logError } from './utils/logger.js';
 import { TOOLS } from './tools/index.js';
 import { validatePatterns } from './utils/tools.js';
@@ -73,6 +74,7 @@ Examples:
   npx ${packageName} run --read-only
   npx ${packageName} session
   npx ${packageName} logout
+  npx ${packageName} config --claude-api-key <key>
   
   For more information, visit: https://github.com/auth0/auth0-mcp-server`
   );
@@ -146,6 +148,13 @@ program
   .command('session')
   .description('Display current authentication session information')
   .action(session);
+
+// Config command
+program
+  .command('config')
+  .description('Configure Auth0 MCP server settings')
+  .option('--claude-api-key <key>', 'Set Claude API key for AI-powered features')
+  .action(config);
 
 // Parse arguments and handle potential errors
 program.parseAsync().catch((error) => {
