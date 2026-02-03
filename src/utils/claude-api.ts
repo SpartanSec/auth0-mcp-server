@@ -113,10 +113,14 @@ export class ClaudeApiClient {
     analysisType: 'security' | 'performance' | 'configuration' | 'general' = 'general'
   ): Promise<string> {
     const systemPrompts = {
-      security: 'You are a security expert analyzing Auth0 configurations. Focus on security best practices, vulnerabilities, and recommendations.',
-      performance: 'You are a performance expert analyzing Auth0 configurations. Focus on optimization opportunities and performance improvements.',
-      configuration: 'You are an Auth0 expert analyzing configurations. Provide insights and best practice recommendations.',
-      general: 'You are an expert analyzing Auth0 data. Provide helpful insights and recommendations.',
+      security:
+        'You are a security expert analyzing Auth0 configurations. Focus on security best practices, vulnerabilities, and recommendations.',
+      performance:
+        'You are a performance expert analyzing Auth0 configurations. Focus on optimization opportunities and performance improvements.',
+      configuration:
+        'You are an Auth0 expert analyzing configurations. Provide insights and best practice recommendations.',
+      general:
+        'You are an expert analyzing Auth0 data. Provide helpful insights and recommendations.',
     };
 
     return this.chat(

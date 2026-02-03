@@ -1,5 +1,6 @@
 import { ACTION_HANDLERS, ACTION_TOOLS } from './actions.js';
 import { APPLICATION_HANDLERS, APPLICATION_TOOLS } from './applications.js';
+import { BACKUP_HANDLERS, BACKUP_TOOLS } from './backup.js';
 import { CONNECTION_HANDLERS, CONNECTION_TOOLS } from './connections.js';
 import type { HandlerConfig, HandlerRequest, HandlerResponse, Tool } from '../utils/types.js';
 import { FORM_HANDLERS, FORM_TOOLS } from './forms.js';
@@ -15,6 +16,7 @@ export const TOOLS: Tool[] = [
   ...LOG_TOOLS,
   ...FORM_TOOLS,
   ...CONNECTION_TOOLS,
+  ...BACKUP_TOOLS,
 ];
 
 // Collect all handlers
@@ -25,6 +27,7 @@ const allHandlers = {
   ...LOG_HANDLERS,
   ...FORM_HANDLERS,
   ...CONNECTION_HANDLERS,
+  ...BACKUP_HANDLERS,
 };
 
 /**

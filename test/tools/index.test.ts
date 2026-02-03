@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { TOOLS, HANDLERS } from '../../src/tools/index';
 import { ACTION_TOOLS, ACTION_HANDLERS } from '../../src/tools/actions';
 import { APPLICATION_TOOLS, APPLICATION_HANDLERS } from '../../src/tools/applications';
+import { BACKUP_TOOLS, BACKUP_HANDLERS } from '../../src/tools/backup';
 import { CONNECTION_TOOLS, CONNECTION_HANDLERS } from '../../src/tools/connections';
 import { FORM_TOOLS, FORM_HANDLERS } from '../../src/tools/forms';
 import { LOG_TOOLS, LOG_HANDLERS } from '../../src/tools/logs';
@@ -14,6 +15,7 @@ describe('Tools Index', () => {
       const expectedToolCount =
         ACTION_TOOLS.length +
         APPLICATION_TOOLS.length +
+        BACKUP_TOOLS.length +
         CONNECTION_TOOLS.length +
         FORM_TOOLS.length +
         LOG_TOOLS.length +
@@ -26,6 +28,7 @@ describe('Tools Index', () => {
       const allIndividualTools = [
         ...ACTION_TOOLS,
         ...APPLICATION_TOOLS,
+        ...BACKUP_TOOLS,
         ...CONNECTION_TOOLS,
         ...FORM_TOOLS,
         ...LOG_TOOLS,
@@ -45,6 +48,7 @@ describe('Tools Index', () => {
       // Get all handler keys from individual modules
       const actionHandlerKeys = Object.keys(ACTION_HANDLERS);
       const applicationHandlerKeys = Object.keys(APPLICATION_HANDLERS);
+      const backupHandlerKeys = Object.keys(BACKUP_HANDLERS);
       const connectionHandlerKeys = Object.keys(CONNECTION_HANDLERS);
       const formHandlerKeys = Object.keys(FORM_HANDLERS);
       const logHandlerKeys = Object.keys(LOG_HANDLERS);
@@ -54,6 +58,7 @@ describe('Tools Index', () => {
       const expectedHandlerCount =
         actionHandlerKeys.length +
         applicationHandlerKeys.length +
+        backupHandlerKeys.length +
         connectionHandlerKeys.length +
         formHandlerKeys.length +
         logHandlerKeys.length +
@@ -66,6 +71,7 @@ describe('Tools Index', () => {
       const allHandlerKeys = [
         ...actionHandlerKeys,
         ...applicationHandlerKeys,
+        ...backupHandlerKeys,
         ...connectionHandlerKeys,
         ...formHandlerKeys,
         ...logHandlerKeys,
@@ -82,6 +88,10 @@ describe('Tools Index', () => {
       });
 
       applicationHandlerKeys.forEach((key) => {
+        expect(typeof HANDLERS[key]).toBe('function');
+      });
+
+      backupHandlerKeys.forEach((key) => {
         expect(typeof HANDLERS[key]).toBe('function');
       });
 
