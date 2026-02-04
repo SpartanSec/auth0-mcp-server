@@ -7,6 +7,10 @@ import { CONNECTION_TOOLS, CONNECTION_HANDLERS } from '../../src/tools/connectio
 import { FORM_TOOLS, FORM_HANDLERS } from '../../src/tools/forms';
 import { LOG_TOOLS, LOG_HANDLERS } from '../../src/tools/logs';
 import { RESOURCE_SERVER_TOOLS, RESOURCE_SERVER_HANDLERS } from '../../src/tools/resource-servers';
+import {
+  TERRAFORM_EXPORT_TOOLS,
+  TERRAFORM_EXPORT_HANDLERS,
+} from '../../src/tools/terraform-export';
 
 describe('Tools Index', () => {
   describe('TOOLS', () => {
@@ -19,7 +23,8 @@ describe('Tools Index', () => {
         CONNECTION_TOOLS.length +
         FORM_TOOLS.length +
         LOG_TOOLS.length +
-        RESOURCE_SERVER_TOOLS.length;
+        RESOURCE_SERVER_TOOLS.length +
+        TERRAFORM_EXPORT_TOOLS.length;
 
       // Verify the combined TOOLS array has the correct length
       expect(TOOLS.length).toBe(expectedToolCount);
@@ -33,6 +38,7 @@ describe('Tools Index', () => {
         ...FORM_TOOLS,
         ...LOG_TOOLS,
         ...RESOURCE_SERVER_TOOLS,
+        ...TERRAFORM_EXPORT_TOOLS,
       ];
 
       allIndividualTools.forEach((tool) => {
@@ -53,6 +59,7 @@ describe('Tools Index', () => {
       const formHandlerKeys = Object.keys(FORM_HANDLERS);
       const logHandlerKeys = Object.keys(LOG_HANDLERS);
       const resourceServerHandlerKeys = Object.keys(RESOURCE_SERVER_HANDLERS);
+      const terraformExportHandlerKeys = Object.keys(TERRAFORM_EXPORT_HANDLERS);
 
       // Calculate the expected total number of handlers
       const expectedHandlerCount =
@@ -62,7 +69,8 @@ describe('Tools Index', () => {
         connectionHandlerKeys.length +
         formHandlerKeys.length +
         logHandlerKeys.length +
-        resourceServerHandlerKeys.length;
+        resourceServerHandlerKeys.length +
+        terraformExportHandlerKeys.length;
 
       // Verify the combined HANDLERS object has the correct number of keys
       expect(Object.keys(HANDLERS).length).toBe(expectedHandlerCount);
@@ -76,6 +84,7 @@ describe('Tools Index', () => {
         ...formHandlerKeys,
         ...logHandlerKeys,
         ...resourceServerHandlerKeys,
+        ...terraformExportHandlerKeys,
       ];
 
       allHandlerKeys.forEach((key) => {
@@ -108,6 +117,10 @@ describe('Tools Index', () => {
       });
 
       resourceServerHandlerKeys.forEach((key) => {
+        expect(typeof HANDLERS[key]).toBe('function');
+      });
+
+      terraformExportHandlerKeys.forEach((key) => {
         expect(typeof HANDLERS[key]).toBe('function');
       });
     });

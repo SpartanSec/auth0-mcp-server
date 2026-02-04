@@ -6,6 +6,7 @@ import type { HandlerConfig, HandlerRequest, HandlerResponse, Tool } from '../ut
 import { FORM_HANDLERS, FORM_TOOLS } from './forms.js';
 import { LOG_HANDLERS, LOG_TOOLS } from './logs.js';
 import { RESOURCE_SERVER_HANDLERS, RESOURCE_SERVER_TOOLS } from './resource-servers.js';
+import { TERRAFORM_EXPORT_HANDLERS, TERRAFORM_EXPORT_TOOLS } from './terraform-export.js';
 import trackEvent from '../utils/analytics.js';
 
 // Combine all tools into a single array
@@ -17,6 +18,7 @@ export const TOOLS: Tool[] = [
   ...FORM_TOOLS,
   ...CONNECTION_TOOLS,
   ...BACKUP_TOOLS,
+  ...TERRAFORM_EXPORT_TOOLS,
 ];
 
 // Collect all handlers
@@ -28,6 +30,7 @@ const allHandlers = {
   ...FORM_HANDLERS,
   ...CONNECTION_HANDLERS,
   ...BACKUP_HANDLERS,
+  ...TERRAFORM_EXPORT_HANDLERS,
 };
 
 /**
